@@ -1,5 +1,6 @@
 package br.com.diegosilva.canyonbunny.game;
 
+import br.com.diegosilva.canyonbunny.util.CameraHelper;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -18,7 +19,7 @@ public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
     public Sprite[] testSprites;
     public int selectedSprite;
-
+    public CameraHelper cameraHelper;
 
     public WorldController() {
         init();
@@ -44,6 +45,7 @@ public class WorldController extends InputAdapter {
 
     private void init() {
         Gdx.input.setInputProcessor(this);
+        cameraHelper = new CameraHelper();
         initTestObjects();
     }
 
@@ -64,6 +66,7 @@ public class WorldController extends InputAdapter {
     public void update(float deltaTime) {
         handleDebugInput(deltaTime);
         updateTestObjects(deltaTime);
+        cameraHelper.update(deltaTime);
     }
 
     private void handleDebugInput(float deltaTime) {
@@ -107,8 +110,16 @@ public class WorldController extends InputAdapter {
         // Select next sprite
         else if (keycode == Keys.SPACE) {
             selectedSprite = (selectedSprite + 1) % testSprites.length;
+            if (cameraHelper.hasTarget()) {
+                cameraHelper.setTarget(testSprites[selectedSprite]);
+            }
             Gdx.app.debug(TAG, "Sprite #" + selectedSprite + " selected");
         }
+        else if (keycode == Keys.ENTER) {
+            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : testSprites[selectedSprite]);
+            Gdx.app.debug(TAG, "Camera follow enabled: " +cameraHelper.hasTarget());
+        }
+
         return false;
     }
 }
