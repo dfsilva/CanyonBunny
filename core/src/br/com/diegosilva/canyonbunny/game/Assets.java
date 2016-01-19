@@ -39,4 +39,13 @@ public class Assets implements Disposable, AssetErrorListener {
     public void dispose() {
         assetManager.dispose();
     }
+
+
+    public class AssetBunny{
+        public final TextureAtlas.AtlasRegion head;
+
+        public AssetBunny(TextureAtlas atlas){
+            head = atlas.findRegion("bunny_head");
+        }
+    }
 }
