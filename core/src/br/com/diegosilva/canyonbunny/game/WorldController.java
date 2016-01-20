@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by 98379720172 on 12/01/2016.
@@ -27,12 +29,14 @@ public class WorldController extends InputAdapter {
 
     private void initTestObjects() {
         testSprites = new Sprite[5];
-        int width = 32;
-        int height = 32;
-        Pixmap pixmap = createProceduralPixmap(width, height);
-        Texture texture = new Texture(pixmap);
+
+        Array<TextureRegion> regions = new Array<TextureRegion>();
+        regions.add(Assets.instance.bunny.head);
+        regions.add(Assets.instance.feather.feather);
+        regions.add(Assets.instance.goldCoin.goldCoin);
+
         for (int i = 0; i < testSprites.length; i++) {
-            Sprite spr = new Sprite(texture);
+            Sprite spr = new Sprite(regions.random());
             spr.setSize(1, 1);
             spr.setOrigin(spr.getWidth() / 2.0f, spr.getHeight() / 2.0f);
             float randomX = MathUtils.random(-2.0f, 2.0f);
@@ -49,19 +53,19 @@ public class WorldController extends InputAdapter {
         initTestObjects();
     }
 
-    private Pixmap createProceduralPixmap(int width, int height) {
-        Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
-        pixmap.setColor(1, 0, 0, 0.5f);
-        pixmap.fill();
-        // Draw a yellow-colored X shape on square
-        pixmap.setColor(1, 1, 0, 1);
-        pixmap.drawLine(0, 0, width, height);
-        pixmap.drawLine(width, 0, 0, height);
-        // Draw a cyan-colored border around square
-        pixmap.setColor(0, 1, 1, 1);
-        pixmap.drawRectangle(0, 0, width, height);
-        return pixmap;
-    }
+//    private Pixmap createProceduralPixmap(int width, int height) {
+//        Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
+//        pixmap.setColor(1, 0, 0, 0.5f);
+//        pixmap.fill();
+//        // Draw a yellow-colored X shape on square
+//        pixmap.setColor(1, 1, 0, 1);
+//        pixmap.drawLine(0, 0, width, height);
+//        pixmap.drawLine(width, 0, 0, height);
+//        // Draw a cyan-colored border around square
+//        pixmap.setColor(0, 1, 1, 1);
+//        pixmap.drawRectangle(0, 0, width, height);
+//        return pixmap;
+//    }
 
     public void update(float deltaTime) {
         handleDebugInput(deltaTime);

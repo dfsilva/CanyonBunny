@@ -1,10 +1,12 @@
 package br.com.diegosilva.canyonbunny;
 
+import br.com.diegosilva.canyonbunny.game.Assets;
 import br.com.diegosilva.canyonbunny.game.WorldController;
 import br.com.diegosilva.canyonbunny.game.WorldRenderer;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +22,7 @@ public class CanyonBunnyMain extends ApplicationAdapter {
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Assets.instance.init(new AssetManager());
         worldController = new WorldController();
         worldRenderer = new WorldRenderer(worldController);
         paused = false;
@@ -53,5 +56,6 @@ public class CanyonBunnyMain extends ApplicationAdapter {
     @Override
     public void dispose() {
         worldRenderer.dispose();
+        Assets.instance.dispose();
     }
 }
