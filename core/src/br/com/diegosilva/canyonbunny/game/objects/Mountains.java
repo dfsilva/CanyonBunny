@@ -48,17 +48,14 @@ public class Mountains extends AbstractGameObject {
                     reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
             xRel += dimension.x;
 
-
             //montanha da direita
             reg = regMountainRight;
             batch.draw(reg.getTexture(), origin.x+xRel, position.y +origin.y + yRel, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,
                     reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
             xRel += dimension.x;
-
         }
 
         batch.setColor(1,1,1,1);
-
     }
 
     @Override
